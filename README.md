@@ -19,6 +19,7 @@ This is opinionated boilerplate code that aims to meet the requirements set out 
 # Todo 
 - [ ] WAF
 - [ ] Write Unit Tests
+- [ ] Buildspec
 
 # Getting Started
 
