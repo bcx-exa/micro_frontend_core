@@ -16,14 +16,8 @@ This is opinionated boilerplate code that aims to meet the requirements set out 
 - [x] Documented
 - [x] Cost Effective 
 
-# Requirements
-- Domain Registared on the account, and hostedzone setup
-- Update config in cicd/env
-
 # Todo 
 - [ ] WAF
-- [ ] BuildSpec Test
-- [ ] Update Readme
 - [ ] Write Unit Tests
 
 ### Todo Future
@@ -38,6 +32,13 @@ This is opinionated boilerplate code that aims to meet the requirements set out 
 # Getting Started
 
 ### Initial Setup
+
+Pre-Requisites & Notes
+- You need a domain registed using Route53 in the same AWS account for this to work.
+- Update config in cicd/env
+    - Hosted Zone ID
+    - website URL
+    - Cloudfront Secret(Can be put in secret Manager)
 
 Configure your serverless to use correct AWS profile
 ```
