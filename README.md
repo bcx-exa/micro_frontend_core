@@ -20,15 +20,6 @@ This is opinionated boilerplate code that aims to meet the requirements set out 
 - [ ] WAF
 - [ ] Write Unit Tests
 
-### Todo Future
-- [ ] Link Identity to Frontend
-    - [ ] Login
-    - [ ] Logout
-    - [ ] Forgot Password
-    - [ ] Register
-- [ ] Create HostedZone
-
-
 # Getting Started
 
 ### Initial Setup
@@ -58,4 +49,6 @@ npm run start
 Deployment
 ```
 npm run deploy:dev
+npm run deploy:uat
+npm run deploy:prod
 ```
