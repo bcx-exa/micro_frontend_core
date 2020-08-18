@@ -1,0 +1,7 @@
+{
+  "name": "base_frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

@@ -1,0 +1,13 @@
+Resources:
+  ExampleWebACL:
+    Type: AWS::WAFv2::WebACL
+    Properties:
+      Name: ExampleWebACL
+      Scope: REGIONAL
+      Description: This is an example WebACL
+      DefaultAction:
+        Allow: {}
+      VisibilityConfig:
+        SampledRequestsEnabled: true
+        CloudWatchMetricsEnabled: true
+        MetricName: ExampleWebACLMetric

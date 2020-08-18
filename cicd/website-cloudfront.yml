@@ -1,0 +1,50 @@
+Resources:
+  WebsiteCloudFrontDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Aliases:
+          - ${file(cicd/env/${self:provider.stage}.yml):websiteUrl}
+        Origins:
+          - DomainName:
+              Fn::Join:
+                - ""
+                - - ${file(cicd/env/${self:provider.stage}.yml):websiteUrl}
+                  - ".s3-website-"
+                  - ${self:provider.region}
+                  - ".amazonaws.com"
+            Id: Website
+            CustomOriginConfig:
+              HTTPPort: 80
+              HTTPSPort: 443
+              OriginProtocolPolicy: http-only
+            OriginCustomHeaders:
+              - HeaderName: Referer
+                HeaderValue: ${file(cicd/env/${self:provider.stage}.yml):cloudfrontSecret}
+        Enabled: "true"
+        DefaultRootObject: index.html
+        HttpVersion: http2
+        CustomErrorResponses:
+          - ErrorCode: 404
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+        DefaultCacheBehavior:
+          Compress: true
+          AllowedMethods:
+            - GET
+            - HEAD
+          TargetOriginId: Website
+          ForwardedValues:
+            QueryString: "false"
+            Cookies:
+              Forward: none
+          ViewerProtocolPolicy: redirect-to-https
+        ViewerCertificate:
+          AcmCertificateArn: ${cf.us-east-1:frontendcert-dev.websiteCertificateARN}
+          SslSupportMethod: sni-only
+
+Outputs:
+  WebsiteCloudFrontDistribution:
+    Value: !Ref WebsiteCloudFrontDistribution
+    Export:
+      Name: ${self:service}-${self:provider.stage}-WebsiteCloudFrontDistribution

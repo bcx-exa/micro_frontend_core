@@ -1,0 +1,26 @@
+Resources:
+  subDomainWebsite:
+    Type: AWS::Route53::RecordSetGroup
+    Properties:
+      HostedZoneId: ${file(cicd/env/${self:provider.stage}.yml):hostedZone}
+      RecordSets:
+        - Name: ${file(cicd/env/${self:provider.stage}.yml):websiteUrl}
+          Type: A
+          AliasTarget:
+            HostedZoneId: Z2FDTNDATAQYW2 #Special AWS id required for this to work
+            DNSName: !GetAtt "WebsiteCloudFrontDistribution.DomainName"
+        - Name: ${file(cicd/env/${self:provider.stage}.yml):websiteUrl}
+          Type: AAAA
+          AliasTarget:
+            HostedZoneId: Z2FDTNDATAQYW2 #Special AWS id required for this to work
+            DNSName: !GetAtt "WebsiteCloudFrontDistribution.DomainName"
+        - Name: www.${file(cicd/env/${self:provider.stage}.yml):websiteUrl}
+          Type: A
+          AliasTarget:
+            HostedZoneId: Z2FDTNDATAQYW2 #Special AWS id required for this to work
+            DNSName: !GetAtt "WebsiteCloudFrontDistribution.DomainName"
+        - Name: www.${file(cicd/env/${self:provider.stage}.yml):websiteUrl}
+          Type: AAAA
+          AliasTarget:
+            HostedZoneId: Z2FDTNDATAQYW2 #Special AWS id required for this to work
+            DNSName: !GetAtt "WebsiteCloudFrontDistribution.DomainName"

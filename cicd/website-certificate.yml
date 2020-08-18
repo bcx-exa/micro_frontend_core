@@ -1,0 +1,13 @@
+Resources:
+  websiteCertificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: ${file(./cicd/env/${self:provider.stage}.yml):websiteUrl}
+      DomainValidationOptions:
+        - DomainName: ${file(./cicd/env/${self:provider.stage}.yml):websiteUrl}
+          HostedZoneId: ${file(./cicd/env/${self:provider.stage}.yml):hostedZone}
+      ValidationMethod: DNS
+
+Outputs:
+  websiteCertificateARN:
+    Value: !Ref websiteCertificate

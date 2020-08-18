@@ -1,0 +1,26 @@
+Resources:
+  websiteBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: ${file(cicd/env/${self:provider.stage}.yml):websiteUrl}
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html
+
+  BucketPolicyWebsite:
+    Type: "AWS::S3::BucketPolicy"
+    Properties:
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: PublicReadGetObject
+            Effect: Allow
+            Principal: "*"
+            Action:
+              - "s3:GetObject"
+            Resource: arn:aws:s3:::${file(cicd/env/${self:provider.stage}.yml):websiteUrl}/*
+            Condition:
+              StringLike:
+                aws:Referer: ${file(cicd/env/${self:provider.stage}.yml):cloudfrontSecret}
+      Bucket:
+        Ref: websiteBucket

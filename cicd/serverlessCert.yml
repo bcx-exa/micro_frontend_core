@@ -1,0 +1,10 @@
+service: frontendcert
+
+provider:
+  name: aws
+  stage: ${opt:stage,'dev'}
+  region: us-east-1
+
+resources:
+  - Resources:
+  - ${file(./cicd/website-certificate.yml)}
